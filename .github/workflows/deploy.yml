@@ -22,3 +22,23 @@ jobs:
             cd /home/ec2-user/workspace/DiscordBot
             git remote set-url origin https://github.com/dakken205/DiscordBot.git
             git pull origin main
+
+      - name: Stop previous process
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          script: |
+            cd /home/ec2-user/workspace/DiscordBot
+            bash stop_previous_process.sh
+
+      - name: Start new process
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          script: |
+            cd /home/ec2-user/workspace/DiscordBot
+            nohup python3 discordbot.py > output.log &
