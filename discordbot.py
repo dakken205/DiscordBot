@@ -1,4 +1,9 @@
+# -*- coding: utf-8 -*-
+
+import os
 import discord
+
+DISCORD_BOT_ACCESS_TOKEN = os.environ['DISCORD_BOT_ACCESS_TOKEN']
 
 
 class MyClient(discord.Client):
@@ -18,5 +23,4 @@ class MyClient(discord.Client):
 intents = discord.Intents.default()
 intents.message_content = True
 client = MyClient(intents=intents)
-client.run(
-    'MTA2NTYzOTA2OTQzMTkwMjI4OQ.GCA7yr.H-hTou2Yz1sTF_E93U9La5cHCwTGrPbdr881xQ')
+client.run(DISCORD_BOT_ACCESS_TOKEN)
