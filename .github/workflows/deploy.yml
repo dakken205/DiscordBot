@@ -30,8 +30,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           script: |
-            cd /home/ec2-user/workspace/DiscordBot
-            bash stop_previous_process.sh
+            screen -S bot -X quit
 
       - name: Start new process
         uses: appleboy/ssh-action@master
@@ -41,5 +40,4 @@ jobs:
           key: ${{ secrets.KEY }}
           script: |
             cd /home/ec2-user/workspace/DiscordBot
-            nohup python3 discordbot.py > output.log &
-            disown
+            screen -dmS bot python3 discordbot.py
