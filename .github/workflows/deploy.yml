@@ -42,4 +42,4 @@ jobs:
           script: |
             cd /home/ec2-user/workspace/DiscordBot
             nohup python3 discordbot.py > output.log &
-            disdown
+            disown
