@@ -9,8 +9,6 @@ from discord.ext import tasks
 
 DISCORD_BOT_ACCESS_TOKEN = os.environ["DISCORD_BOT_ACCESS_TOKEN"]  # 消すな
 
-free_talk_ID = 1056870243739381810
-event_attend_ID = 1056870243739381810
 teireikai_ID = 1056866893232885760  # 定例会チャンネルID
 test_ID = 1056870243739381810  # いーだチャンネルID
 
@@ -100,7 +98,7 @@ async def loop():
 
     await client.wait_until_ready()
 
-    if hr == 12 and min == 30:
+    if hr == 15 and min == 30:
         channel = client.get_channel(teireikai_ID)
         if isinstance(channel, discord.TextChannel):
             await channel.send("@DA研 本日16:30から定例会です！みんなラーニングコモンズに集合！")
