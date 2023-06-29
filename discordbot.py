@@ -104,7 +104,7 @@ async def loop():
 
     if hr == 12 and min == 30:
         channel = client.get_channel(teireikai_ID)
-        await channel.send(f"@DA研 本日16:30から定例会です！みんなラーニングコモンズに集合！{smile}")
+        await channel.send(f"@DA研 本日16:30から定例会です！みんなラーニングコモンズに集合！")
 
 
 @client.event
