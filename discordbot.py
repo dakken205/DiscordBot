@@ -90,15 +90,15 @@ async def on_message(message: discord.Message):
 async def loop():
     await client.wait_until_ready()
 
-    # w = datetime.date.today()
-    # week = int(w.isoweekday())
+    w = datetime.date.today()
+    week = int(w.isoweekday())
     dt = datetime.datetime.utcnow() + datetime.timedelta(hours=9)  # 日本との時差
     hr = int(dt.hour)
     min = int(dt.minute)
 
     await client.wait_until_ready()
 
-    if hr == 15 and min == 30:
+    if week == 4 and hr == 15 and min == 30:
         channel = client.get_channel(TEIREIKAI_CHANNEL_ID)
         if isinstance(channel, discord.TextChannel):
             await channel.send("@DA研 本日16:30から定例会です！みんなラーニングコモンズに集合！")
