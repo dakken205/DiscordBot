@@ -1,20 +1,18 @@
 # -*- coding: utf-8 -*-
 
-import os
-import discord
 import datetime
+import os
 import random
+
+import discord
 from discord.ext import tasks
-import time
-import threading
-import asyncio
 
 DISCORD_BOT_ACCESS_TOKEN = os.environ["DISCORD_BOT_ACCESS_TOKEN"]  # 消すな
 
 free_talk_ID = 1056870243739381810
-event_atend_ID = 1056870243739381810
-teireikai_ID = 1056866893232885760 # 定例会チャンネルID
-test_ID = 1056870243739381810 #いーだチャンネルID
+event_attend_ID = 1056870243739381810
+teireikai_ID = 1056866893232885760  # 定例会チャンネルID
+test_ID = 1056870243739381810  # いーだチャンネルID
 
 smile = "\N{Smiling Face with Open Mouth and Smiling Eyes}"
 maru = "\N{Heavy Large Circle}"
@@ -32,8 +30,8 @@ async def on_ready():
     await client.change_presence(activity=discord.Game(name="定例会", type=3))
 
 
-# 　前使ってたやつの残骸
-morninggreeting = [
+# 前使ってたやつの残骸
+MORNING_GREETINGS = [
     "今朝はよく眠れましたか？",
     "朝はコーヒーでも飲みましょう！",
     "今日も一日頑張りましょう！",
@@ -42,7 +40,7 @@ morninggreeting = [
     "背伸びをしてリラックスしましょう！",
 ]
 
-afternoongreeting = [
+AFTERNOON_GREETINGS = [
     "調子はいかがですか？",
     "背伸びをしてリラックスしてみましょう！",
     "今日もあと半分！頑張りましょう！",
@@ -51,7 +49,7 @@ afternoongreeting = [
     "今日はいいことがあるかもしれません！",
 ]
 
-eveninggreeting = [
+EVENING_GREETINGS = [
     "今日も一日お疲れ様です",
     "夜はリラックスしましょう！",
     "今日はいいことありましたか？",
@@ -62,26 +60,26 @@ eveninggreeting = [
 
 
 @client.event
-async def reply(message):
+async def reply(message: discord.Message):
     dt = datetime.datetime.utcnow() + datetime.timedelta(hours=9)  # 日本との時差
     hr = int(dt.hour)
-    rd01 = random.choice(morninggreeting)
-    rd02 = random.choice(afternoongreeting)
-    rd03 = random.choice(eveninggreeting)
+    rd01 = random.choice(MORNING_GREETINGS)
+    rd02 = random.choice(AFTERNOON_GREETINGS)
+    rd03 = random.choice(EVENING_GREETINGS)
 
     if hr >= 17 or hr < 5:
-        reply = f"こんばんは、{message.author.mention}さん！{rd03}"
+        await message.channel.send(f"こんばんは、{message.author.mention}さん！{rd03}")
     if hr >= 11 and hr < 17:
-        reply = f"こんにちは、{message.author.mention}さん！{rd02}"
+        await message.channel.send(f"こんにちは、{message.author.mention}さん！{rd02}")
     if hr >= 5 and hr < 11:
-        reply = f"おはようございます、{message.author.mention}さん！{rd01}"
-
-    await message.channel.send(reply)
+        await message.channel.send(
+            f"おはようございます、{message.author.mention}さん！{rd01}")
 
 
 @client.event
-async def on_message(message):
-    if client.user in message.mentions:
+async def on_message(message: discord.Message):
+    mentioned_users = [user and user.id for user in message.mentions]
+    if (client.user and client.user.id) in mentioned_users:
         await reply(message)
     elif message.author.bot:
         return
@@ -94,8 +92,8 @@ async def on_message(message):
 async def loop():
     await client.wait_until_ready()
 
-    w = datetime.date.today()
-    week = int(w.isoweekday())
+    # w = datetime.date.today()
+    # week = int(w.isoweekday())
     dt = datetime.datetime.utcnow() + datetime.timedelta(hours=9)  # 日本との時差
     hr = int(dt.hour)
     min = int(dt.minute)
@@ -104,18 +102,19 @@ async def loop():
 
     if hr == 12 and min == 30:
         channel = client.get_channel(teireikai_ID)
-        await channel.send(f"@DA研 本日16:30から定例会です！みんなラーニングコモンズに集合！")
+        if isinstance(channel, discord.TextChannel):
+            await channel.send("@DA研 本日16:30から定例会です！みんなラーニングコモンズに集合！")
 
 
 @client.event
-async def on_member_join(member):  # 新規ユーザー参加時
+async def on_member_join(member: discord.Member):  # 新規ユーザー参加時
     print("新規ユーザー参加")
 
     smile = "\N{Smiling Face with Open Mouth and Smiling Eyes}"
 
     channel = client.get_channel(test_ID)
-
-    await channel.send(f"はじめまして！サーバーにようこそ！{smile}")
+    if isinstance(channel, discord.TextChannel):
+        await channel.send(f"はじめまして！サーバーにようこそ！{smile}")
 
 
 client.run(DISCORD_BOT_ACCESS_TOKEN)
