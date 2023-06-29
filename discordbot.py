@@ -13,7 +13,8 @@ DISCORD_BOT_ACCESS_TOKEN = os.environ["DISCORD_BOT_ACCESS_TOKEN"]  # 消すな
 
 free_talk_ID = 1056870243739381810
 event_atend_ID = 1056870243739381810
-test_ID = 1056870243739381810
+teireikai_ID = 1056866893232885760 # 定例会チャンネルID
+test_ID = 1056870243739381810 #いーだチャンネルID
 
 smile = "\N{Smiling Face with Open Mouth and Smiling Eyes}"
 maru = "\N{Heavy Large Circle}"
@@ -101,9 +102,9 @@ async def loop():
 
     await client.wait_until_ready()
 
-    if hr == 9 and min == 00:
-        channel = client.get_channel(free_talk_ID)
-        await channel.send(f"1時間目が始まりました。みなさんちゃんと出席していますか？")
+    if hr == 12 and min == 30:
+        channel = client.get_channel(teireikai_ID)
+        await channel.send(f"@DA研 本日16:30から定例会です！みんなラーニングコモンズに集合！{smile}")
 
 
 @client.event
@@ -112,7 +113,7 @@ async def on_member_join(member):  # 新規ユーザー参加時
 
     smile = "\N{Smiling Face with Open Mouth and Smiling Eyes}"
 
-    channel = client.get_channel(free_talk_ID)
+    channel = client.get_channel(test_ID)
 
     await channel.send(f"はじめまして！サーバーにようこそ！{smile}")
 
