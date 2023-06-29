@@ -9,12 +9,12 @@ from discord.ext import tasks
 
 DISCORD_BOT_ACCESS_TOKEN = os.environ["DISCORD_BOT_ACCESS_TOKEN"]  # 消すな
 
-teireikai_ID = 1056866893232885760  # 定例会チャンネルID
-test_ID = 1056870243739381810  # いーだチャンネルID
+TEIREIKAI_CHANNEL_ID = 1056866893232885760  # 定例会チャンネルID
+TEST_CHANNEL_ID = 1056870243739381810  # いーだチャンネルID
 
-smile = "\N{Smiling Face with Open Mouth and Smiling Eyes}"
-maru = "\N{Heavy Large Circle}"
-batu = "\N{CROSS MARK}"
+SMILE_ICON = "\N{Smiling Face with Open Mouth and Smiling Eyes}"
+CIRCLE_ICON = "\N{Heavy Large Circle}"
+CROSS_ICON = "\N{CROSS MARK}"
 
 intents = discord.Intents.all()
 client = discord.Client(intents=intents)
@@ -99,20 +99,17 @@ async def loop():
     await client.wait_until_ready()
 
     if hr == 15 and min == 30:
-        channel = client.get_channel(teireikai_ID)
+        channel = client.get_channel(TEIREIKAI_CHANNEL_ID)
         if isinstance(channel, discord.TextChannel):
             await channel.send("@DA研 本日16:30から定例会です！みんなラーニングコモンズに集合！")
 
 
 @client.event
 async def on_member_join(member: discord.Member):  # 新規ユーザー参加時
-    print("新規ユーザー参加")
 
-    smile = "\N{Smiling Face with Open Mouth and Smiling Eyes}"
-
-    channel = client.get_channel(test_ID)
+    channel = client.get_channel(TEST_CHANNEL_ID)
     if isinstance(channel, discord.TextChannel):
-        await channel.send(f"はじめまして！サーバーにようこそ！{smile}")
+        await channel.send(f"はじめまして！サーバーにようこそ！{SMILE_ICON}")
 
 
 client.run(DISCORD_BOT_ACCESS_TOKEN)
