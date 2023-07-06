@@ -85,6 +85,16 @@ async def on_message(message: discord.Message):
         await message.channel.send("DA研ボットだよ！")
         await message.channel.send("😆")
 
+#　0706追加
+@client.event
+async def on_message(message):
+    if message.author.bot:
+        pass
+    elif message.content.startswith('test'):
+        send_message = f'<@&1060233582351757454>てすとです'
+        await message.channel.send(send_message)
+# 0706追加分終
+
 
 @tasks.loop(minutes=1)
 async def loop():
@@ -98,7 +108,7 @@ async def loop():
 
     await client.wait_until_ready()
 
-    if week == 4 and hr == 15 and min == 30:
+    if week == 4 and hr == 15 and min == 00:
         channel = client.get_channel(TEIREIKAI_CHANNEL_ID)
         if isinstance(channel, discord.TextChannel):
             await channel.send("@DA研 本日16:30から定例会です！みんなラーニングコモンズに集合！")
