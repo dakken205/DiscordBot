@@ -19,6 +19,9 @@ CROSS_ICON = "\N{CROSS MARK}"
 intents = discord.Intents.all()
 client = discord.Client(intents=intents)
 
+da_mention = "<@&1060233582351757454>"
+
+
 
 @client.event
 async def on_ready():
@@ -91,7 +94,7 @@ async def on_message(message):
     if message.author.bot:
         pass
     elif message.content.startswith('test'):
-        send_message = f'<@&1060233582351757454>てすとです'
+        send_message = f'{da_mention}てすとです'
         await message.channel.send(send_message)
 # 0706追加分終
 
