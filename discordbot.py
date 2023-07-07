@@ -22,7 +22,6 @@ client = discord.Client(intents=intents)
 da_mention = "<@&1060233582351757454>"
 
 
-
 @client.event
 async def on_ready():
     loop.start()  # Botが準備完了した場合
@@ -80,23 +79,24 @@ async def reply(message: discord.Message):
 @client.event
 async def on_message(message: discord.Message):
     mentioned_users = [user and user.id for user in message.mentions]
+
+    # TODO: 次の行は何をしていますか？
     if (client.user and client.user.id) in mentioned_users:
         await reply(message)
-    elif message.author.bot:
+
+    # ボット自身のメッセージには反応しない
+    if message.author.bot:
         return
+
+    # DA研というメッセージに反応
     if message.content == "DA研":
         await message.channel.send("DA研ボットだよ！")
         await message.channel.send("😆")
 
-#　0706追加
-@client.event
-async def on_message(message):
-    if message.author.bot:
-        pass
-    elif message.content.startswith('test'):
+    # testから始まるメッセージに反応
+    if message.content.startswith('test'):
         send_message = f'{da_mention}てすとです'
         await message.channel.send(send_message)
-# 0706追加分終
 
 
 @tasks.loop(minutes=1)
