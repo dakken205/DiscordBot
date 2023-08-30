@@ -20,6 +20,7 @@ intents = discord.Intents.all()
 client = discord.Client(intents=intents)
 
 da_mention = "<@&1060233582351757454>"
+keiei_mention = "<@&1056864581517070449>"
 
 
 @client.event
@@ -94,10 +95,20 @@ async def on_message(message: discord.Message):
         await message.channel.send("😆")
 
     # testから始まるメッセージに反応
-    if message.content.startswith('/test'):
-        embed = discord.Embed(title=f"**テストです**",color=discord.Colour.from_rgb(255, 210, 33))
-        embed.set_thumbnail(url="https://c.tenor.com/KChHVc7BktYAAAAd/discord-loading.gif")
+    if message.content.startswith('/test_teirei'):
+        embed = discord.Embed(
+            title=f"**《test》定例会が開催されます!**", description=f"{da_mention} 16:30～定例会があります", color=discord.Colour.from_rgb(0, 132, 234))
+        embed.set_thumbnail(url="https://i0.wp.com/cliply.co/wp-content/uploads/2021/08/372108630_DISCORD_LOGO_BLACK_400.gif")
         await message.channel.send(embed=embed)
+        
+    if message.content.startswith('/test_keiei'):
+        embed = discord.Embed(title=f"**《test》定例会の資料記入について**", 
+                              description=f"{keiei_mention} 16:30～定例会の資料記入をお願いします", 
+                              color=discord.Colour.from_rgb(0, 132, 234))
+        embed.add_field(name="DA研定例会資料作成フォーム",value="https://pptx-maker.uoh-dakken.com/#/")
+        embed.set_thumbnail(url="https://i0.wp.com/cliply.co/wp-content/uploads/2021/08/372108630_DISCORD_LOGO_BLACK_400.gif")
+        await message.channel.send(embed=embed)
+
 
     if message.content == '兵庫県':
         send_message = f"Japan Plane Rectangular CS V"
