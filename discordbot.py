@@ -11,6 +11,7 @@ DISCORD_BOT_ACCESS_TOKEN = os.environ["DISCORD_BOT_ACCESS_TOKEN"]  # 消すな
 
 TEIREIKAI_CHANNEL_ID = 1056866893232885760  # 定例会チャンネルID
 TEST_CHANNEL_ID = 1056870243739381810  # いーだチャンネルID
+KEIEIJIN_CHANNEL_ID = 1092709824661295175
 
 SMILE_ICON = "\N{Smiling Face with Open Mouth and Smiling Eyes}"
 CIRCLE_ICON = "\N{Heavy Large Circle}"
@@ -97,17 +98,19 @@ async def on_message(message: discord.Message):
     # testから始まるメッセージに反応
     if message.content.startswith('/test_teirei'):
         embed = discord.Embed(
-            title=f"**《test》定例会が開催されます！**", 
-            description=f"{da_mention} 16:30～定例会があります", 
+            title=f"**定例会が開催されます！**",
+            description=f"**16:30～**定例会があります！\n みんな集合！", 
             color=discord.Colour.from_rgb(0, 132, 234))
+        embed.set_thumbnail(
+            url="https://c.tenor.com/KChHVc7BktYAAAAd/discord-loading.gif")
         await message.channel.send(embed=embed)
         
     if message.content.startswith('/test_keiei'):
-        embed = discord.Embed(title=f"**《test》定例会の資料記入について**", 
-                              description=f"{keiei_mention} 16:30～定例会\n資料記入をお願いします", 
+        embed = discord.Embed(title=f"**(試)定例会の資料記入について**", 
+                              description=f"{keiei_mention} 16:30～定例会\n資料記入をお願いします\n", 
                               color=discord.Colour.from_rgb(0, 132, 234))
         embed.set_image(url="https://c.tenor.com/KChHVc7BktYAAAAd/discord-loading.gif")
-        embed.add_field(name="定例会資料作成フォーム",value="https://pptx-maker.uoh-dakken.com/#/")
+        embed.add_field(name="定例会資料作成フォーム↓",value="https://pptx-maker.uoh-dakken.com/#/")
         await message.channel.send(embed=embed)
 
 
@@ -135,14 +138,22 @@ async def loop():
 
     await client.wait_until_ready()
 
-    if week == 4 and hr == 15 and min == 00:
+    if week == 4 and hr == 15 and min == 00: #定例会おしらせembed
         channel = client.get_channel(TEIREIKAI_CHANNEL_ID)
         embed = discord.Embed(
-            title=f"**定例会が開催されます！**", 
-            description=f"{da_mention} {month}月{day}日({week_list[week-1]}) 16:30～定例会があります", 
+            title=f"**定例会が開催されます！**",
+            description=f"{da_mention} **{month}**月**{day}**日(**{week_list[week-1]}**) \n **16:30～**定例会があります！\n みんな集合！", 
             color=discord.Colour.from_rgb(0, 132, 234))
         embed.set_thumbnail(
-            url="https://cdn.pixabay.com/photo/2016/06/15/15/02/info-1459077_1280.png")
+            url="https://c.tenor.com/KChHVc7BktYAAAAd/discord-loading.gif")
+        await channel.send(embed=embed)
+
+    if week == 4 and hr == 9 and min == 00: #定例会資料記入_経営陣embed
+        channel = client.get_channel(KEIEIJIN_CHANNEL_ID)
+        embed = discord.Embed(title=f"**《test》定例会の資料記入について**", 
+                              description=f"{keiei_mention} 本日16:30～定例会です。\n各自、資料記入をお願いします\n", 
+                              color=discord.Colour.from_rgb(0, 132, 234))
+        embed.add_field(name="定例会資料作成フォーム↓",value="https://pptx-maker.uoh-dakken.com/#/")
         await channel.send(embed=embed)
 
 
@@ -151,7 +162,13 @@ async def on_member_join(member: discord.Member):  # 新規ユーザー参加時
 
     channel = client.get_channel(TEST_CHANNEL_ID)
     if isinstance(channel, discord.TextChannel):
-        await channel.send(f"はじめまして！サーバーにようこそ！{SMILE_ICON}")
+        embed = discord.Embed(
+            title=f"**サーバーの入室を検知しました**",
+            description=f"welcome to Dakken discord channel!",
+            color=discord.Colour.from_rgb(0, 132, 234))
+        await channel.send(embed=embed)
+
+
 
 
 client.run(DISCORD_BOT_ACCESS_TOKEN)
