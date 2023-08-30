@@ -106,7 +106,7 @@ async def on_message(message: discord.Message):
         embed = discord.Embed(title=f"**《test》定例会の資料記入について**", 
                               description=f"{keiei_mention} 16:30～定例会\n資料記入をお願いします", 
                               color=discord.Colour.from_rgb(0, 132, 234))
-        embed.image(url="https://c.tenor.com/KChHVc7BktYAAAAd/discord-loading.gif")
+        embed.set_image(url="https://c.tenor.com/KChHVc7BktYAAAAd/discord-loading.gif")
         embed.add_field(name="定例会資料作成フォーム",value="https://pptx-maker.uoh-dakken.com/#/")
         await message.channel.send(embed=embed)
 
