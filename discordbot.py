@@ -97,16 +97,17 @@ async def on_message(message: discord.Message):
     # testから始まるメッセージに反応
     if message.content.startswith('/test_teirei'):
         embed = discord.Embed(
-            title=f"**《test》定例会が開催されます!**", 
+            title=f"**《test》定例会が開催されます！**", 
             description=f"{da_mention} 16:30～定例会があります", 
             color=discord.Colour.from_rgb(0, 132, 234))
         await message.channel.send(embed=embed)
         
     if message.content.startswith('/test_keiei'):
         embed = discord.Embed(title=f"**《test》定例会の資料記入について**", 
-                              description=f"{keiei_mention} 16:30～定例会の資料記入をお願いします", 
+                              description=f"{keiei_mention} 16:30～定例会\n資料記入をお願いします", 
                               color=discord.Colour.from_rgb(0, 132, 234))
-        embed.add_field(name="DA研定例会資料作成フォーム",value="https://pptx-maker.uoh-dakken.com/#/")
+        embed.set_thumbnail(url="https://media.tenor.com/eKEebMdawp8AAAAC/discord-gif-logo.gif")
+        embed.add_field(name="定例会資料作成フォーム",value="https://pptx-maker.uoh-dakken.com/#/")
         await message.channel.send(embed=embed)
 
 
@@ -137,7 +138,9 @@ async def loop():
     if week == 4 and hr == 15 and min == 00:
         channel = client.get_channel(TEIREIKAI_CHANNEL_ID)
         embed = discord.Embed(
-            title=f"**定例会が開催されます!**", description=f"{da_mention} {month}月{day}日({week_list[week-1]}) 16:30～定例会があります", color=discord.Colour.from_rgb(0, 132, 234))
+            title=f"**定例会が開催されます！**", 
+            description=f"{da_mention} {month}月{day}日({week_list[week-1]}) 16:30～定例会があります", 
+            color=discord.Colour.from_rgb(0, 132, 234))
         embed.set_thumbnail(
             url="https://cdn.pixabay.com/photo/2016/06/15/15/02/info-1459077_1280.png")
         await channel.send(embed=embed)
