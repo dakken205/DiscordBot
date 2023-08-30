@@ -79,6 +79,10 @@ async def reply(message: discord.Message):
 @client.event
 async def on_message(message: discord.Message):
     mentioned_users = [user and user.id for user in message.mentions]
+    
+    #ボット自身がメンションされたかどうかを確認
+    if (client.user and client.user.id) in mentioned_users:
+        await reply(message)
 
     # ボット自身のメッセージには反応しない
     if message.author.bot:
