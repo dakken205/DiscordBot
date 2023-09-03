@@ -1,0 +1,23 @@
+{
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+
+  // Python
+  "[python]": {
+    "editor.tabSize": 4,
+    "editor.defaultFormatter": "eeyore.yapf"
+  },
+  "python.analysis.typeCheckingMode": "strict",
+
+  // isort
+  "isort.interpreter": ["/usr/local/bin/python3.10"],
+  "isort.check": true,
+  "isort.severity": {
+    "E": "Information",
+    "W": "Warning",
+    "I": "Information",
+    "H": "Hint"
+  },
+
+  "cSpell.words": ["Colour", "keiei", "KEIEIJIN", "teirei"]
+}
