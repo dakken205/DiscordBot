@@ -146,7 +146,7 @@ async def loop():
         description = (
             f"{da_mention} **{month}**月**{day}**日(**{week_list[week-1]}**)\n"
             "**16:30～**定例会があります！\n"
-            "みんな集合！"),
+            "みんな集合！")
         embed = discord.Embed(title="**定例会が開催されます！**",
                               description=description,
                               color=discord.Colour.from_rgb(0, 132, 234))
