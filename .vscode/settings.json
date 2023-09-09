@@ -4,8 +4,7 @@
 
   // Python
   "[python]": {
-    "editor.tabSize": 4,
-    "editor.defaultFormatter": "eeyore.yapf"
+    "editor.tabSize": 4
   },
   "python.analysis.typeCheckingMode": "strict",
 
