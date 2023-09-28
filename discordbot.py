@@ -150,7 +150,8 @@ async def on_message(message: discord.Message):
         else:
             await message.channel.send(
                 "Failed to start server, please check the log")
-            await message.channel.send(result.stderr)
+            await message.channel.send("standard output: \n" + result.stdout)
+            await message.channel.send("standard error: \n" + result.stderr)
 
     if message.content in ('/minecraft botan', '/minecraft stop'):
 
@@ -170,7 +171,8 @@ async def on_message(message: discord.Message):
         else:
             await message.channel.send(
                 "Failed to stop server, please check the log")
-            await message.channel.send(result.stderr)
+            await message.channel.send("standard output: \n" + result.stdout)
+            await message.channel.send("standard error: \n" + result.stderr)
 
 
 @tasks.loop(minutes=1)
