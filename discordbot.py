@@ -122,10 +122,28 @@ async def on_message(message: discord.Message):
         await message.channel.send(send_message)
 
     if message.content == 'わため':
-        subprocess.run("source ./src/start_server.sh")
+        result = subprocess.run("./src/start_server.sh",
+                                capture_output=True,
+                                text=True)
+        if result.returncode == 0:
+            await message.channel.send(
+                "Success to start server, don't forget to stop it!")
+        else:
+            await message.channel.send(
+                "Failed to start server, please check the log")
+            await message.channel.send(result.stderr)
 
     if message.content == 'ぼたん':
-        subprocess.run("source ./src/stop_server.sh")
+        result = subprocess.run("./src/stop_server.sh",
+                                capture_output=True,
+                                text=True)
+
+        if result.returncode == 0:
+            await message.channel.send("Success to stop server")
+        else:
+            await message.channel.send(
+                "Failed to stop server, please check the log")
+            await message.channel.send(result.stderr)
 
 
 @tasks.loop(minutes=1)
