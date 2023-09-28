@@ -123,12 +123,11 @@ async def on_message(message: discord.Message):
 
     if message.content == '/minecraft':
         await message.channel.send(
-            "Usage:\n"
-            "\n"
-            "    - `/minecraft start`: start ec2 server and minecraft server\n"
-            "    - `/minecraft watame`: alias of `/minecraft start`\n"
-            "    - `/minecraft stop`: stop minecraft server and ec2 server\n"
-            "    - `/minecraft botan`: alias of `/minecraft stop`\n"
+            "Usage: `/minecraft [command]`"
+            "- `/minecraft start`: start ec2 server and minecraft server"
+            "- `/minecraft watame`: alias of `/minecraft start`"
+            "- `/minecraft stop`: stop minecraft server and ec2 server"
+            "- `/minecraft botan`: alias of `/minecraft stop`"
             "\n")
 
     if message.content in ('/minecraft watame', '/minecraft start'):
