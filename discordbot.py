@@ -18,6 +18,8 @@ SMILE_ICON = "\N{Smiling Face with Open Mouth and Smiling Eyes}"
 CIRCLE_ICON = "\N{Heavy Large Circle}"
 CROSS_ICON = "\N{CROSS MARK}"
 
+MINECRAFT_MEMBER_IDS = (931913703136301057, 706154999050272869)
+
 intents = discord.Intents.all()
 client = discord.Client(intents=intents)
 
@@ -125,12 +127,19 @@ async def on_message(message: discord.Message):
         await message.channel.send(
             "Usage: `/minecraft [command]`\n"
             "- `/minecraft start`: start ec2 server and minecraft server\n"
-            "- `/minecraft watame`: alias of `/minecraft start`\n"
+            "  - `/minecraft watame`: alias of `/minecraft start`\n"
             "- `/minecraft stop`: stop minecraft server and ec2 server\n"
-            "- `/minecraft botan`: alias of `/minecraft stop`\n"
+            "  - `/minecraft botan`: alias of `/minecraft stop`\n"
             "\n")
 
     if message.content in ('/minecraft watame', '/minecraft start'):
+
+        if message.author.id not in MINECRAFT_MEMBER_IDS:
+            await message.channel.send(
+                "You are not allowed to start/stop the server. "
+                "Please contact <@!931913703136301057>")
+            return
+
         await message.channel.send("Starting server...")
         result = subprocess.run("./src/start_server.sh",
                                 capture_output=True,
@@ -144,6 +153,13 @@ async def on_message(message: discord.Message):
             await message.channel.send(result.stderr)
 
     if message.content in ('/minecraft botan', '/minecraft stop'):
+
+        if message.author.id not in MINECRAFT_MEMBER_IDS:
+            await message.channel.send(
+                "You are not allowed to start/stop the server. "
+                "Please contact <@!931913703136301057>")
+            return
+
         await message.channel.send("Stopping server...")
         result = subprocess.run("./src/stop_server.sh",
                                 capture_output=True,
