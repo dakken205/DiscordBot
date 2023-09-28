@@ -3,6 +3,7 @@
 import datetime
 import os
 import random
+import subprocess
 
 import discord
 from discord.ext import tasks
@@ -119,6 +120,12 @@ async def on_message(message: discord.Message):
     if message.content == '兵庫県':
         send_message = "Japan Plane Rectangular CS V"
         await message.channel.send(send_message)
+
+    if message.content == 'わため':
+        subprocess.run("source ./src/start_server.sh")
+
+    if message.content == 'ぼたん':
+        subprocess.run("source ./src/stop_server.sh")
 
 
 @tasks.loop(minutes=1)
