@@ -121,7 +121,18 @@ async def on_message(message: discord.Message):
         send_message = "Japan Plane Rectangular CS V"
         await message.channel.send(send_message)
 
-    if message.content == 'わため':
+    if message.content == '/minecraft':
+        await message.channel.send(
+            "Usage:\n"
+            "\n"
+            "    - `/minecraft start`: start ec2 server and minecraft server\n"
+            "    - `/minecraft watame`: alias of `/minecraft start`\n"
+            "    - `/minecraft stop`: stop minecraft server and ec2 server\n"
+            "    - `/minecraft botan`: alias of `/minecraft stop`\n"
+            "\n")
+
+    if message.content in ('/minecraft watame', '/minecraft start'):
+        await message.channel.send("Starting server...")
         result = subprocess.run("./src/start_server.sh",
                                 capture_output=True,
                                 text=True)
@@ -133,7 +144,8 @@ async def on_message(message: discord.Message):
                 "Failed to start server, please check the log")
             await message.channel.send(result.stderr)
 
-    if message.content == 'ぼたん':
+    if message.content in ('/minecraft botan', '/minecraft stop'):
+        await message.channel.send("Stopping server...")
         result = subprocess.run("./src/stop_server.sh",
                                 capture_output=True,
                                 text=True)
