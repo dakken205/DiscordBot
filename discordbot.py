@@ -96,9 +96,9 @@ async def on_message(message: discord.Message):
 
     # DA研というメッセージに反応
     if message.content == "DA研":
-        await message.channel.send("DA研ボットだよ！")
+        da_ans = await message.channel.send("DA研ボットだよ！")
         await message.channel.send("😆")
-        await message.add_reaction(SMILE_ICON)
+        await da_ans.add_reaction(SMILE_ICON)
 
     # testから始まるメッセージに反応
     if message.content.startswith('/test_teirei'):
