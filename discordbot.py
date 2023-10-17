@@ -231,7 +231,7 @@ async def loop():
             return
         description = (
             f"{da_mention} 次回解析コンペの会議に \n 出席→〇 \n 欠席→×")
-        embed = discord.Embed(title="**解析コンペの出欠**",
+        embed = discord.Embed(title="**解析コンペの出欠確認**",
                               description=description,
                               color=discord.Colour.from_rgb(97, 216, 70))
         emb = await channel.send(embed=embed)
