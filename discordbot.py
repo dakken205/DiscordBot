@@ -108,7 +108,9 @@ async def on_message(message: discord.Message):
 
         embed.set_thumbnail(
             url="https://c.tenor.com/KChHVc7BktYAAAAd/discord-loading.gif")
-        await message.channel.send(embed=embed)
+        emb = await message.channel.send(embed=embed)
+        await emb.add_reaction(CIRCLE_ICON)
+        await emb.add_reaction(CROSS_ICON)
 
     if message.content.startswith('/test_keiei'):
         embed = discord.Embed(
@@ -232,7 +234,9 @@ async def loop():
         embed = discord.Embed(title="**解析コンペの出欠**",
                               description=description,
                               color=discord.Colour.from_rgb(97, 216, 70))
-        await channel.send(embed=embed)
+        emb = await channel.send(embed=embed)
+        await emb.add_reaction(CIRCLE_ICON)
+        await emb.add_reaction(CROSS_ICON)
 
 
 @client.event
