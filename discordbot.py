@@ -12,7 +12,8 @@ DISCORD_BOT_ACCESS_TOKEN = os.environ["DISCORD_BOT_ACCESS_TOKEN"]  # 消すな
 
 TEIREIKAI_CHANNEL_ID = 1056866893232885760  # 定例会チャンネルID
 TEST_CHANNEL_ID = 1056870243739381810  # いーだチャンネルID
-KEIEIJIN_CHANNEL_ID = 1092709824661295175
+KEIEIJIN_CHANNEL_ID = 1092709824661295175 #経営陣チャンネルID
+KAISEKI_CHANNEL_ID = 1146443598783594536
 
 SMILE_ICON = "\N{Smiling Face with Open Mouth and Smiling Eyes}"
 CIRCLE_ICON = "\N{Heavy Large Circle}"
@@ -97,6 +98,7 @@ async def on_message(message: discord.Message):
     if message.content == "DA研":
         await message.channel.send("DA研ボットだよ！")
         await message.channel.send("😆")
+        await message.add_reaction(SMILE_ICON)
 
     # testから始まるメッセージに反応
     if message.content.startswith('/test_teirei'):
@@ -214,11 +216,22 @@ async def loop():
             return
 
         embed = discord.Embed(
-            title="**《test》定例会の資料記入について**",
+            title="**定例会の資料記入について**",
             description=f"{keiei_mention} 本日16:30～定例会です。\n各自、資料記入をお願いします\n",
             color=discord.Colour.from_rgb(0, 132, 234))
         embed.add_field(name="定例会資料作成フォーム↓",
                         value="https://pptx-maker.uoh-dakken.com/#/")
+        await channel.send(embed=embed)
+        
+    if week == 2 and hr == 18 and min == 00:  # 解析コンペ出欠embed
+        channel = client.get_channel(KAISEKI_CHANNEL_ID)
+        if not isinstance(channel, discord.TextChannel):
+            return
+        description = (
+            f"{da_mention} 次回解析コンペの会議に \n 出席→〇 \n 欠席→×")
+        embed = discord.Embed(title="**解析コンペの出欠**",
+                              description=description,
+                              color=discord.Colour.from_rgb(97, 216, 70))
         await channel.send(embed=embed)
 
 
