@@ -210,6 +210,19 @@ async def loop():
         embed.set_thumbnail(
             url="https://c.tenor.com/KChHVc7BktYAAAAd/discord-loading.gif")
         await channel.send(embed=embed)
+        
+    if week == 4 and hr == 16 and min == 30:  # 定例会開始embed
+        channel = client.get_channel(TEIREIKAI_CHANNEL_ID)
+        if not isinstance(channel, discord.TextChannel):
+            return
+        description = (
+            f"{da_mention} **{month}**月**{day}**日(**{week_list[week-1]}**)定例会")
+        embed = discord.Embed(title="**定例会を開始します！**",
+                              description=description,
+                              color=discord.Colour.from_rgb(0, 132, 234))
+        embed.set_thumbnail(
+            url="https://c.tenor.com/KChHVc7BktYAAAAd/discord-loading.gif")
+        await channel.send(embed=embed)
 
     if week == 4 and hr == 9 and min == 00:  # 定例会資料記入_経営陣embed
         channel = client.get_channel(KEIEIJIN_CHANNEL_ID)
@@ -224,8 +237,8 @@ async def loop():
                         value="https://pptx-maker.uoh-dakken.com/#/")
         await channel.send(embed=embed)
         
-    if week == 4 and hr == 2 and min == 51:  # 解析コンペ出欠embed
-        channel = client.get_channel(TEST_CHANNEL_ID)
+    if week == 4 and hr == 9 and min ==00:  # 解析コンペ出欠embed
+        channel = client.get_channel(KAISEKI_CHANNEL_ID)
         if not isinstance(channel, discord.TextChannel):
             return
         embed = discord.Embed(
