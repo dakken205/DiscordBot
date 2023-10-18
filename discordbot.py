@@ -213,8 +213,8 @@ async def loop():
             url="https://c.tenor.com/KChHVc7BktYAAAAd/discord-loading.gif")
         await channel.send(embed=embed)
 
-    if week == 4 and hr == 9 and min == 00:  # 定例会資料記入_経営陣embed
-        channel = client.get_channel(KEIEIJIN_CHANNEL_ID)
+    if week == 4 and hr == 1 and min == 49:  # 定例会資料記入_経営陣embed
+        channel = client.get_channel(TEST_CHANNEL_ID)
         if not isinstance(channel, discord.TextChannel):
             return
 
@@ -226,10 +226,11 @@ async def loop():
                         value="https://pptx-maker.uoh-dakken.com/#/")
         await channel.send(embed=embed)
         
-    if week == 4 and hr == 1 and min == 40:  # 解析コンペ出欠embed
+    if week == 4 and hr == 1 and min == 49:  # 解析コンペ出欠embed
         channel = client.get_channel(TEST_CHANNEL_ID)
         if not isinstance(channel, discord.TextChannel):
             return
+        
         embed = discord.Embed(
             title="**解析コンペの出欠確認**",
             description=f"{da_mention} 次回解析コンペの会議に \n 出席→〇 \n 欠席→×",
