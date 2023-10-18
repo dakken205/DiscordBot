@@ -64,8 +64,6 @@ EVENING_GREETINGS = [
     "息抜きをしましょう！",
 ]
 
-w = datetime.date.today()
-week = int(w.isoweekday())
 
 @client.event
 async def reply(message: discord.Message):
@@ -98,7 +96,7 @@ async def on_message(message: discord.Message):
 
     # DA研というメッセージに反応
     if message.content == "DA研":
-        da_ans = await message.channel.send(f"DA研ボットだよ！{week}")
+        da_ans = await message.channel.send(f"DA研ボットだよ！")
         await message.channel.send("😆")
         await da_ans.add_reaction(SMILE_ICON)
     # testから始まるメッセージに反応
@@ -197,11 +195,11 @@ async def loop():
     # 月と日を取得
     month = today.month
     day = today.day
-    week_list = ["月", "火", "水", "木", "金", "土", "日"]
+    week_list = ["月", "火", "水", "木", "金", "土", "日"] #月が0です
 
     await client.wait_until_ready()
 
-    if week == 4 and hr == 15 and min == 00:  # 定例会おしらせembed
+    if week == 3 and hr == 15 and min == 00:  # 定例会おしらせembed
         channel = client.get_channel(TEIREIKAI_CHANNEL_ID)
         if not isinstance(channel, discord.TextChannel):
             return
@@ -216,7 +214,7 @@ async def loop():
             url="https://c.tenor.com/KChHVc7BktYAAAAd/discord-loading.gif")
         await channel.send(embed=embed)
 
-    if week == 4 and hr == 1 and min == 49:  # 定例会資料記入_経営陣embed
+    if week == 3 and hr == 2 and min == 10:  # 定例会資料記入_経営陣embed
         channel = client.get_channel(TEST_CHANNEL_ID)
         if not isinstance(channel, discord.TextChannel):
             return
@@ -229,7 +227,7 @@ async def loop():
                         value="https://pptx-maker.uoh-dakken.com/#/")
         await channel.send(embed=embed)
         
-    if week == 4 and hr == 1 and min == 49:  # 解析コンペ出欠embed
+    if week == 3 and hr == 2 and min == 10:  # 解析コンペ出欠embed
         channel = client.get_channel(TEST_CHANNEL_ID)
         if not isinstance(channel, discord.TextChannel):
             return
