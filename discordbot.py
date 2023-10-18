@@ -7,6 +7,7 @@ import subprocess
 
 import discord
 from discord.ext import tasks
+import pytz
 
 DISCORD_BOT_ACCESS_TOKEN = os.environ["DISCORD_BOT_ACCESS_TOKEN"]  # 消すな
 
@@ -183,17 +184,14 @@ async def on_message(message: discord.Message):
 @tasks.loop(minutes=1)
 async def loop():
     await client.wait_until_ready()
-
-    w = datetime.date.today()
-    week = int(w.isoweekday()) + 1
-    dt = datetime.datetime.utcnow() + datetime.timedelta(hours=9)  # 日本との時差
+    dt = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
+    week = int(dt.isoweekday())
+    # 日本との時差
     hr = int(dt.hour)
     min = int(dt.minute)
     # 現在の日付と時刻を取得
-    today = datetime.datetime.now()
-    # 月と日を取得
-    month = today.month
-    day = today.day
+    month = dt.month
+    day = dt.day
     week_list = ["月", "火", "水", "木", "金", "土", "日"] #月曜日が1
 
     await client.wait_until_ready()
@@ -226,7 +224,7 @@ async def loop():
                         value="https://pptx-maker.uoh-dakken.com/#/")
         await channel.send(embed=embed)
         
-    if week == 4 and hr == 2 and min == 25:  # 解析コンペ出欠embed
+    if week == 4 and hr == 2 and min == 44:  # 解析コンペ出欠embed
         channel = client.get_channel(TEST_CHANNEL_ID)
         if not isinstance(channel, discord.TextChannel):
             return
