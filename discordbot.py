@@ -226,14 +226,12 @@ async def loop():
                         value="https://pptx-maker.uoh-dakken.com/#/")
         await channel.send(embed=embed)
         
-    if week == 4 and hr == 1 and min == 25:  # 解析コンペ出欠embed
+    if week == 4 and hr == 1 and min == 32:  # 解析コンペ出欠embed
         channel = client.get_channel(TEST_CHANNEL_ID)
         if not isinstance(channel, discord.TextChannel):
             return
-        description = (
-            f"{da_mention} 次回解析コンペの会議に \n 出席→〇 \n 欠席→×")
         embed = discord.Embed(title="**解析コンペの出欠確認**",
-                              description=description,
+                              description=f"{da_mention} 次回解析コンペの会議に \n 出席→〇 \n 欠席→×",
                               color=discord.Colour.from_rgb(97, 216, 70))
         emb = await channel.send(embed=embed)
         await emb.add_reaction(CIRCLE_ICON)
