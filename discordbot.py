@@ -96,16 +96,15 @@ async def on_message(message: discord.Message):
 
     # DA研というメッセージに反応
     if message.content == "DA研":
-        da_ans = await message.channel.send(f"DA研ボットだよ！")
+        da_ans = await message.channel.send("DA研ボットだよ！")
         await message.channel.send("😆")
         await da_ans.add_reaction(SMILE_ICON)
+
     # testから始まるメッセージに反応
     if message.content.startswith('/test_teirei'):
         embed = discord.Embed(title="**定例会が開催されます！**",
                               description="**16:30～**定例会があります！\n みんな集合！",
                               color=discord.Colour.from_rgb(0, 132, 234))
-        
-        
 
 
         embed.set_thumbnail(
@@ -186,7 +185,7 @@ async def loop():
     await client.wait_until_ready()
 
     w = datetime.date.today()
-    week = int(w.isoweekday())
+    week = int(w.isoweekday()) + 1
     dt = datetime.datetime.utcnow() + datetime.timedelta(hours=9)  # 日本との時差
     hr = int(dt.hour)
     min = int(dt.minute)
@@ -195,11 +194,11 @@ async def loop():
     # 月と日を取得
     month = today.month
     day = today.day
-    week_list = ["月", "火", "水", "木", "金", "土", "日"] #月が0です
+    week_list = ["月", "火", "水", "木", "金", "土", "日"] #月曜日が1
 
     await client.wait_until_ready()
 
-    if week == 3 and hr == 15 and min == 00:  # 定例会おしらせembed
+    if week == 4 and hr == 15 and min == 00:  # 定例会おしらせembed
         channel = client.get_channel(TEIREIKAI_CHANNEL_ID)
         if not isinstance(channel, discord.TextChannel):
             return
@@ -214,8 +213,8 @@ async def loop():
             url="https://c.tenor.com/KChHVc7BktYAAAAd/discord-loading.gif")
         await channel.send(embed=embed)
 
-    if week == 3 and hr == 2 and min == 10:  # 定例会資料記入_経営陣embed
-        channel = client.get_channel(TEST_CHANNEL_ID)
+    if week == 4 and hr == 9 and min == 00:  # 定例会資料記入_経営陣embed
+        channel = client.get_channel(KEIEIJIN_CHANNEL_ID)
         if not isinstance(channel, discord.TextChannel):
             return
 
@@ -227,16 +226,17 @@ async def loop():
                         value="https://pptx-maker.uoh-dakken.com/#/")
         await channel.send(embed=embed)
         
-    if week == 3 and hr == 2 and min == 10:  # 解析コンペ出欠embed
+    if week == 4 and hr == 2 and min == 12:  # 解析コンペ出欠embed
         channel = client.get_channel(TEST_CHANNEL_ID)
         if not isinstance(channel, discord.TextChannel):
             return
-        
         embed = discord.Embed(
             title="**解析コンペの出欠確認**",
             description=f"{da_mention} 次回解析コンペの会議に \n 出席→〇 \n 欠席→×",
             color=discord.Colour.from_rgb(97, 216, 70))
-        await channel.send(embed=embed)
+        emb = await channel.send(embed=embed)
+        await emb.add_reaction(CIRCLE_ICON)
+        await emb.add_reaction(CROSS_ICON)
 
 
 @client.event
