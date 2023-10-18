@@ -64,7 +64,7 @@ EVENING_GREETINGS = [
     "息抜きをしましょう！",
 ]
 
-
+w = datetime.date.today()
 @client.event
 async def reply(message: discord.Message):
     dt = datetime.datetime.utcnow() + datetime.timedelta(hours=9)  # 日本との時差
@@ -96,15 +96,16 @@ async def on_message(message: discord.Message):
 
     # DA研というメッセージに反応
     if message.content == "DA研":
-        da_ans = await message.channel.send("DA研ボットだよ！")
+        da_ans = await message.channel.send(f"DA研ボットだよ！{w}")
         await message.channel.send("😆")
         await da_ans.add_reaction(SMILE_ICON)
-
     # testから始まるメッセージに反応
     if message.content.startswith('/test_teirei'):
         embed = discord.Embed(title="**定例会が開催されます！**",
                               description="**16:30～**定例会があります！\n みんな集合！",
                               color=discord.Colour.from_rgb(0, 132, 234))
+        
+        
 
 
         embed.set_thumbnail(
