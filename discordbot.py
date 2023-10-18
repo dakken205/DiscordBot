@@ -65,6 +65,8 @@ EVENING_GREETINGS = [
 ]
 
 w = datetime.date.today()
+week = int(w.isoweekday())
+
 @client.event
 async def reply(message: discord.Message):
     dt = datetime.datetime.utcnow() + datetime.timedelta(hours=9)  # 日本との時差
@@ -96,7 +98,7 @@ async def on_message(message: discord.Message):
 
     # DA研というメッセージに反応
     if message.content == "DA研":
-        da_ans = await message.channel.send(f"DA研ボットだよ！")
+        da_ans = await message.channel.send(f"DA研ボットだよ！{week}")
         await message.channel.send("😆")
         await da_ans.add_reaction(SMILE_ICON)
     # testから始まるメッセージに反応
