@@ -106,6 +106,7 @@ async def on_message(message: discord.Message):
                               description="**16:30～**定例会があります！\n みんな集合！",
                               color=discord.Colour.from_rgb(0, 132, 234))
 
+
         embed.set_thumbnail(
             url="https://c.tenor.com/KChHVc7BktYAAAAd/discord-loading.gif")
         emb = await message.channel.send(embed=embed)
@@ -225,8 +226,8 @@ async def loop():
                         value="https://pptx-maker.uoh-dakken.com/#/")
         await channel.send(embed=embed)
         
-    if week == 2 and hr == 18 and min == 00:  # 解析コンペ出欠embed
-        channel = client.get_channel(KAISEKI_CHANNEL_ID)
+    if week == 4 and hr == 1 and min == 25:  # 解析コンペ出欠embed
+        channel = client.get_channel(TEST_CHANNEL_ID)
         if not isinstance(channel, discord.TextChannel):
             return
         description = (
