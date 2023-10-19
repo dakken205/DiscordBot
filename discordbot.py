@@ -7,7 +7,6 @@ import subprocess
 
 import discord
 from discord.ext import tasks
-import pytz
 
 DISCORD_BOT_ACCESS_TOKEN = os.environ["DISCORD_BOT_ACCESS_TOKEN"]  # 消すな
 
