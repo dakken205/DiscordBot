@@ -87,8 +87,7 @@ async def reply(message: discord.Message):
 async def on_message(message: discord.Message):
     mentioned_users = [user and user.id for user in message.mentions]
 
-    dt = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
-    week = int(dt.isoweekday())
+
 
     # ボット自身がメンションされたかどうかを確認
     if (client.user and client.user.id) in mentioned_users:
@@ -101,7 +100,7 @@ async def on_message(message: discord.Message):
     # DA研というメッセージに反応
     if message.content == "DA研":
         da_ans = await message.channel.send("DA研ボットだよ！")
-        await message.channel.send(f"{dt},{week}")
+        await message.channel.send("😆")
         await da_ans.add_reaction(SMILE_ICON)
 
     # testから始まるメッセージに反応
@@ -240,7 +239,7 @@ async def loop():
                         value="https://pptx-maker.uoh-dakken.com/#/")
         await channel.send(embed=embed)
         
-    if week == 4 and hr == 9 and min ==00:  # 解析コンペ出欠embed
+    if week == 4 and hr == 12 and min ==00:  # 解析コンペ出欠embed
         channel = client.get_channel(KAISEKI_CHANNEL_ID)
         if not isinstance(channel, discord.TextChannel):
             return
