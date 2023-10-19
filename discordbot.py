@@ -87,6 +87,9 @@ async def reply(message: discord.Message):
 async def on_message(message: discord.Message):
     mentioned_users = [user and user.id for user in message.mentions]
 
+    dt = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
+    week = int(dt.isoweekday())
+
     # ボット自身がメンションされたかどうかを確認
     if (client.user and client.user.id) in mentioned_users:
         await reply(message)
@@ -98,7 +101,7 @@ async def on_message(message: discord.Message):
     # DA研というメッセージに反応
     if message.content == "DA研":
         da_ans = await message.channel.send("DA研ボットだよ！")
-        await message.channel.send("😆")
+        await message.channel.send(f"{dt},{week}")
         await da_ans.add_reaction(SMILE_ICON)
 
     # testから始まるメッセージに反応
