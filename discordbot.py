@@ -238,12 +238,14 @@ async def loop():
                         value="https://pptx-maker.uoh-dakken.com/#/")
         await channel.send(embed=embed)
         
-    if week == 4 and hr == 12 and min ==00:  # 解析コンペ出欠embed
+    if week == 2 and hr == 14 and min ==00:  # 解析コンペ出欠embed
+        kaiseki_dt = dt + datetime.timedelta(days=2)
+        kaiseki_week = int(kaiseki_dt.isoweekday())
         channel = client.get_channel(KAISEKI_CHANNEL_ID)
         if not isinstance(channel, discord.TextChannel):
             return
         embed = discord.Embed(
-            title=f"**{month}**/**{day}**(**{week_list[week-1]}**)解析コンペ出欠調査",
+            title=f"**{kaiseki_dt.month}**/**{kaiseki_dt.day}**(**{week_list[kaiseki_week-1]}**)解析コンペ出欠調査",
             description=f"{da_mention} 解析コンペの会議に \n 出席 ⇒ {CIRCLE_ICON}   欠席 ⇒ {CROSS_ICON}",
             color=discord.Colour.from_rgb(97, 216, 70))
         embed.set_thumbnail(
