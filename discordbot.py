@@ -246,7 +246,7 @@ async def loop():
             return
         embed = discord.Embed(
             title=f"**{kaiseki_dt.month}**/**{kaiseki_dt.day}**({week_list[kaiseki_week-1]})解析コンペ出欠調査",
-            description=f"{da_mention} 次回解析コンペの会議に \n 出席 ⇒ {CIRCLE_ICON}   欠席 ⇒ {CROSS_ICON}",
+            description=f"{da_mention} 次回の会議に \n 出席 ⇒ {CIRCLE_ICON}   欠席 ⇒ {CROSS_ICON}",
             color=discord.Colour.from_rgb(97, 216, 70))
         embed.set_thumbnail(
             url="https://cdn.dribbble.com/users/1751759/screenshots/5460650/wifi_happiness.gif")
