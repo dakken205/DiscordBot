@@ -64,7 +64,6 @@ EVENING_GREETINGS = [
     "息抜きをしましょう！",
 ]
 
-
 @client.event
 async def reply(message: discord.Message):
     dt = datetime.datetime.utcnow() + datetime.timedelta(hours=9)  # 日本との時差
