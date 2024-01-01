@@ -272,5 +272,4 @@ async def on_member_join(member: discord.Member):  # 新規ユーザー参加時
         )
         await channel.send(embed=embed)
 
-
 client.run(DISCORD_BOT_ACCESS_TOKEN)
