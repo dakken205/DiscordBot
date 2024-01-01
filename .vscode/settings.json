@@ -18,5 +18,6 @@
     "H": "Hint"
   },
 
-  "cSpell.words": ["botan", "Colour", "keiei", "KEIEIJIN", "teirei", "watame"]
+  "cSpell.words": ["botan", "Colour", "keiei", "KEIEIJIN", "teirei", "watame"],
+  "editor.defaultFormatter": "charliermarsh.ruff"
 }
