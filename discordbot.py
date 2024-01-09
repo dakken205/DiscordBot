@@ -3,7 +3,6 @@
 import datetime
 import os
 import random
-import subprocess
 
 import discord
 from discord.ext import tasks
@@ -19,7 +18,6 @@ SMILE_ICON = "\N{Smiling Face with Open Mouth and Smiling Eyes}"
 CIRCLE_ICON = "\N{Heavy Large Circle}"
 CROSS_ICON = "\N{CROSS MARK}"
 
-MINECRAFT_MEMBER_IDS = (931913703136301057, 706154999050272869)
 
 intents = discord.Intents.all()
 client = discord.Client(intents=intents)
@@ -130,53 +128,6 @@ async def on_message(message: discord.Message):
         send_message = "Japan Plane Rectangular CS V"
         await message.channel.send(send_message)
 
-    if message.content == "/minecraft":
-        await message.channel.send(
-            "Usage: `/minecraft [command]`\n"
-            "- `/minecraft start`: start ec2 server and minecraft server\n"
-            "  - `/minecraft watame`: alias of `/minecraft start`\n"
-            "- `/minecraft stop`: stop minecraft server and ec2 server\n"
-            "  - `/minecraft botan`: alias of `/minecraft stop`\n"
-            "\n"
-        )
-
-    if message.content in ("/minecraft watame", "/minecraft start"):
-        if message.author.id not in MINECRAFT_MEMBER_IDS:
-            await message.channel.send(
-                "You are not allowed to start/stop the server. "
-                "Please contact <@!931913703136301057>"
-            )
-            return
-
-        await message.channel.send("Starting server...")
-        result = subprocess.run("./src/start_server.sh", capture_output=True, text=True)
-        if result.returncode == 0:
-            await message.channel.send(
-                "Success to start server, don't forget to stop it!"
-            )
-        else:
-            await message.channel.send("Failed to start server, please check the log")
-            await message.channel.send("standard output: \n" + result.stdout)
-            await message.channel.send("standard error: \n" + result.stderr)
-
-    if message.content in ("/minecraft botan", "/minecraft stop"):
-        if message.author.id not in MINECRAFT_MEMBER_IDS:
-            await message.channel.send(
-                "You are not allowed to start/stop the server. "
-                "Please contact <@!931913703136301057>"
-            )
-            return
-
-        await message.channel.send("Stopping server...")
-        result = subprocess.run("./src/stop_server.sh", capture_output=True, text=True)
-
-        if result.returncode == 0:
-            await message.channel.send("Success to stop server")
-        else:
-            await message.channel.send("Failed to stop server, please check the log")
-            await message.channel.send("standard output: \n" + result.stdout)
-            await message.channel.send("standard error: \n" + result.stderr)
-
 
 @tasks.loop(minutes=1)
 async def loop():
@@ -271,5 +222,6 @@ async def on_member_join(member: discord.Member):  # 新規ユーザー参加時
             color=discord.Colour.from_rgb(0, 132, 234),
         )
         await channel.send(embed=embed)
+
 
 client.run(DISCORD_BOT_ACCESS_TOKEN)
