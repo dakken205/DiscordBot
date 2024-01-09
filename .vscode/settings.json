@@ -1,0 +1,24 @@
+{
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+
+  // Python
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.tabSize": 4,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "always"
+    }
+  },
+
+  // Pylance
+  "python.analysis.typeCheckingMode": "strict",
+
+  // flake8
+  "flake8.args": ["--max-line-length", "120"],
+
+  // isort
+  "isort.args": ["--profile", "black"],
+
+  "cSpell.words": ["botan", "Colour", "keiei", "KEIEIJIN", "teirei", "watame"]
+}
